@@ -14,6 +14,11 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+# Функція генерації пароля — винесена для тестування
+def generate_random_password(length=28):
+    characters = string.ascii_letters + string.punctuation + string.digits
+    return "".join(choice(characters) for _ in range(length))
+
 class App:
     def __init__(self):
         self.window = Tk()
@@ -41,11 +46,11 @@ class App:
         password_generator.pack()
 
     def generate_password(self):
-        characters = string.ascii_letters + string.punctuation + string.digits
-        password = "".join(choice(characters) for _ in range(28))
+        password = generate_random_password()
         self.password_entry.delete(0, END)
         self.password_entry.insert(0, password)
 
 # запуск застосунку
-app = App()
-app.window.mainloop()
+if __name__ == '__main__':
+    app = App()
+    app.window.mainloop()

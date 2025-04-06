@@ -1,4 +1,4 @@
-name: Build password_generator EXE
+name: Build password_generator EXE and Run Tests
 
 on:
   push:
@@ -22,6 +22,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pyinstaller
+        pip install -r requirements.txt  # Якщо є файл з залежностями, для тестів та інших бібліотек
+
+    - name: Run unit tests
+      run: |
+        python -m unittest discover  # Запуск всіх модульних тестів
 
     - name: Build EXE with PyInstaller
       run: |

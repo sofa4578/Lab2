@@ -27,9 +27,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt  # Якщо є файл requirements.txt
 
-    - name: Run unit tests
+    - name: Run unit tests with XML report
       run: |
-        python -m unittest discover -s tests  # Запуск тестів з папки tests (заміни, якщо потрібно)
+        python -m xmlrunner discover -s tests -o tests/
+
     
     - name: Save test results
       if: success()

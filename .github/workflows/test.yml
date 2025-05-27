@@ -35,7 +35,7 @@ jobs:
 
     - name: Upload test results
       if: success()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2   # Зверни увагу тут!
       with:
         name: test-reports
         path: test-reports/*.xml

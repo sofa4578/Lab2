@@ -28,7 +28,7 @@ jobs:
 
     - name: Run unit tests with XML report
       run: |
-        python -m xmlrunner discover -s tests -o test-reports
+        python -m xmlrunner discover -s test -o test-reports
 
     - name: List test reports directory
       run: |

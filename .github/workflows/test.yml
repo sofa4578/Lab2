@@ -13,12 +13,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Оновлено до v4
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5  # Оновлено до v5
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'  # Чітко вказано Python 3.10
+        python-version: '3.10'
         architecture: 'x64'
 
     - name: Install dependencies
@@ -26,16 +26,26 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Check test directory
+      run: |
+        ls -la test || echo "Директорія test не знайдена"
+        test -f test/__init__.py && echo "Файл __init__.py існує" || echo "Файл __init__.py не знайдено"
+
     - name: Run unit tests with XML report
       run: |
-        python -m xmlrunner discover -s test -o test-reports
+        python -m xmlrunner discover -s test -o test-reports --verbose
 
     - name: List test reports directory
       run: |
-        ls -la test-reports || echo "Немає звітів тестів"
+        ls -la test-reports || echo "Директорія test-reports не знайдена"
+        find test-reports -type f || echo "Файли в test-reports не знайдено"
+
+    - name: Set permissions for test-reports
+      run: |
+        chmod -R 755 test-reports || echo "Директорія test-reports не існує"
 
     - name: Upload test results
-      if: success() || failure()  # Завантажувати звіти навіть при помилці
+      if: success() || failure()
       uses: actions/upload-artifact@v4
       with:
         name: test-reports

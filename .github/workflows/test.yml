@@ -11,7 +11,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Можна вибрати іншу ОС, якщо потрібно
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -25,16 +25,16 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # Якщо є файл requirements.txt
+        pip install -r requirements.txt
+        pip install unittest-xml-reporting
 
     - name: Run unit tests with XML report
       run: |
-        python -m xmlrunner discover -s tests -o tests/
+        python -m xmlrunner discover -s tests -o test-reports
 
-    
     - name: Save test results
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: test-reports
-        path: ./tests/test_report.xml  # Ти можеш згенерувати звіт у форматі JUnit або XML у своєму тесті, якщо це потрібно
+        path: test-reports/*.xml

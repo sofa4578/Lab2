@@ -12,12 +12,12 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Оновлено до останньої версії
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5  # Оновлено до v5 для стабільності
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10'  # Чітко вказано Python 3.10
+        python-version: '3.10'
         architecture: 'x64'
 
     - name: Install dependencies

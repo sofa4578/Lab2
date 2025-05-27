@@ -12,12 +12,13 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Оновлено до останньої версії
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5  # Оновлено до v5 для стабільності
       with:
-        python-version: '3.10'
+        python-version: '3.10'  # Чітко вказано Python 3.10
+        architecture: 'x64'
 
     - name: Install dependencies
       run: |
@@ -31,7 +32,7 @@ jobs:
         pyinstaller -F -i logo.ico --add-data "logo.ico;." --add-data "logo.png;." password_generator.py
 
     - name: Upload executable
-      uses: actions/upload-artifact@v4  # Оновлено до v4
+      uses: actions/upload-artifact@v4
       with:
         name: password_generator_exe
         path: dist/password_generator.exe
